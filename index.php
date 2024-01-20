@@ -53,4 +53,4 @@ function readLastLogArgument(string $filename):void
     }
 }
 
-readLastLogArgument('output.txt');
+readLastLogArgument($filename);
