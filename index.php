@@ -2,13 +2,19 @@
 
 declare(strict_types=1);
 
+echo "Введіть текст для запису в файл: ";
+$text = trim(fgets(STDIN));
+
+
 // Функція для запису аргументів з консолі
-function writeToLogFile($filename, &$textArray)
+function writeToLogFile( string $filename, array &$textArray,string $text):void
 {
-    echo "Введіть текст для запису в файл: ";
-    $text = trim(fgets(STDIN));
 
     $textArray[] = $text;
+
+    if (!file_exists($filename)) {
+        touch($filename);
+    }
 
     $file = fopen($filename, 'a');
 
@@ -23,12 +29,14 @@ function writeToLogFile($filename, &$textArray)
 }
 
 $logArray = [];
+$filename = 'output.txt';
 
-writeToLogFile('output.txt', $logArray);
+
+writeToLogFile($filename, $logArray, $text);
 
 
 // Функція для виводу останнього записаного аргументу
-function readLastLogArgument($filename)
+function readLastLogArgument(string $filename):void
 {
 
     $fileContent = file_get_contents($filename);
